@@ -17,9 +17,19 @@ app.post('/books',async (request,response)=>{
             !request.body.title||
             !request.body.author||
             !request.body.publishYear
-        ){return response.status(400).send({
+        ){
+            return response.status(400).send({
             message:'Send all required fields: title, author, publishYear', 
-        });}
+        });
+
+    }
+    const newBook = {
+        title:request.body.title,
+        author:request.body.author,
+        publishYear:request.body.publishYear,
+    };
+
+    const book = await Book.create(newBook);
 
     }catch(error){
         console.log(error.message);
