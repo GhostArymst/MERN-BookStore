@@ -6,6 +6,8 @@ import {Book} from './models/bookModel.js';
 
 const app=express();
 
+app.use(express.json()) ;
+
 app.get('/',(request,response)=>{
     console.log(request);
     return response.status(234).send('Welcome to MERN stack tutorial');
@@ -30,22 +32,23 @@ app.post('/books',async (request,response)=>{
     };
 
     const book = await Book.create(newBook);
+    response.status(201).send(book);    
 
     }catch(error){
         console.log(error.message);
         response.status(500).send({message: error.message});
-    }
+    };
 });
 
 
 mongoose
     .connect(mongoDBURL)
     .then(()=>{
-        console.log("App conencted to database");
+        console.log("App connected to database");
         app.listen(PORT,()=>{
             console.log(`App is listening to the port: ${PORT}`);
-        })
+        });
     })
     .catch((error)=>{
-        console.log(error)
+        console.log(error);
     });
