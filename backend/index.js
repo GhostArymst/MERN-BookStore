@@ -11,9 +11,6 @@ const app=express();
 
 app.use(express.json()) ;
 
-//Middleware for handling cors
-
-
 app.get('/',(request,response)=>{
     console.log(request);
     return response.status(234).send('Welcome to MERN stack tutorial');
